@@ -72,3 +72,25 @@ def verificar_progresso(idade, grau_escolaridade):
 verificar_progresso(idade, grau_escolaridade)
 verificar_idade_nota(idade)
 verificar_renda(renda_familiar)
+
+
+
+# Abre o arquivo em modo de escrita
+with open('dados_alunos.txt', 'w') as arquivo:
+    # Escreve as informações pessoais do aluno no arquivo
+    arquivo.write(f'Matricula: {n_random}\n')
+    arquivo.write(f'Nome: {nome}\n')
+    arquivo.write(f'Sobrenome: {sobrenome}\n')
+    arquivo.write(f'Idade: {idade}\n')
+    arquivo.write(f'Email: {email}\n')
+    arquivo.write(f'Renda Familiar: {renda_familiar}\n')
+    arquivo.write(f'Filiação: {filiacao}\n')
+    arquivo.write(f'CPF: {cpf}\n')
+    arquivo.write(f'Grau de Escolaridade: {grau_escolaridade}\n')
+
+    # Chama as funções para verificar idade, nota, renda e progresso e escreve os resultados no arquivo
+    arquivo.write(f'Progresso: {verificar_progresso(idade, grau_escolaridade)}\n')
+    verificar_idade_nota(idade)
+    verificar_renda(renda_familiar)
+
+print('Dados gravados com sucesso no arquivo dados_alunos.txt')
