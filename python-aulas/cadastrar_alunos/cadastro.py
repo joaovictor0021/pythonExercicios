@@ -110,5 +110,3 @@ while True:
             print('\nHistórico de Alunos:')
             for aluno in historico_alunos:
                 print(aluno)
-    
-
