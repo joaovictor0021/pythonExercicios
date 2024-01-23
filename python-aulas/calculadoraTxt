@@ -1,0 +1,120 @@
+from random import randint
+import os
+
+os.system("cls")
+
+
+historico_alunos = []
+
+while True:
+    print('')
+    escolha = str(input('Você deseja cadastrar um novo aluno ou ver o histórico? (s / n / ver): '))
+    os.system("cls")
+    print('')
+
+    if escolha.lower() == 's':
+        print('Cadastrar alunos')
+        print('')
+        print('Informações pessoais do aluno:')
+        print('')
+
+        matricula = randint(0, 2000)
+        print('Sua matricula é:', matricula)
+        print('')
+        nome = str(input('Nome: '))
+        sobrenome = str(input('Sobrenome: '))
+        idade = int(input('Idade: '))
+        email = str(input('Email: '))
+        renda_familiar = float(input('Renda familiar mensal: '))
+        filiacao = str(input('Filiação: '))
+        cpf = str(input('CPF: '))
+        print('')
+        os.system("cls")
+        grau_escolaridade = str(input('Grau de escolaridade:\n\nPré-escolar\nFundamental 1\nFundamental 2\nEnsino Médio\n\n'))
+        print('')
+
+        def verificar_idade_nota(idade):
+            if idade >= 16:
+                nota_enem = float(input('Nota do enem: '))
+            else:
+                print('Não tem idade para fazer a prova do ENEM')
+                return
+
+            if (nota_enem >= 600 and nota_enem <= 1000):
+                print('Passou com a média alta')
+            elif (nota_enem >= 500 and nota_enem < 600):
+                print('Passou na média')
+            elif (nota_enem >= 0 and nota_enem < 500):
+                print('Média baixa')
+            else:
+                print('Média indefinida')
+
+        def verificar_renda(renda_familiar):
+            salario_minimo = 1412
+
+            if renda_familiar < salario_minimo:
+                print('Ganhou uma bolsa de 100%')
+            elif salario_minimo <= renda_familiar < salario_minimo * 2:
+                print('Ganhou uma bolsa de 50%')
+            elif renda_familiar >= salario_minimo * 3:
+                print('Ganhou uma bolsa de 30%')
+            else:
+                print('Ganhou uma bolsa de 10%')
+
+        def verificar_progresso(idade, grau_escolaridade):
+            if (idade < 6 and grau_escolaridade == "Pré-escolar"):
+                return "Adiantado"
+            elif (6 <= idade <= 10 and grau_escolaridade == "Fundamental 1"):
+                return "No tempo certo"
+            elif (11 <= idade <= 14 and grau_escolaridade == "Fundamental 2"):
+                return "No tempo certo"
+            elif (idade > 14 and grau_escolaridade == "Ensino Médio"):
+                return "No tempo certo"
+            else:
+                return "Atrasado"
+
+        verificar_progresso(idade, grau_escolaridade)
+
+        aluno = {
+            'Matricula': matricula,
+            'Nome': nome,
+            'Sobrenome': sobrenome,
+            'Idade': idade,
+            'Email': email,
+            'Renda Familiar': renda_familiar,
+            'Filiacao': filiacao,
+            'CPF': cpf,
+            'Grau de Escolaridade': grau_escolaridade,
+            'Progresso': verificar_progresso(idade, grau_escolaridade)
+        }
+
+        historico_alunos.append(aluno)
+
+        with open(f'aluno{matricula}' + '.txt', 'a') as arquivo:
+            arquivo.write(f'Matricula: {matricula}\n')
+            arquivo.write(f'Nome: {nome}\n')
+            arquivo.write(f'Sobrenome: {sobrenome}\n')
+            arquivo.write(f'Idade: {idade}\n')
+            arquivo.write(f'Email: {email}\n')
+            arquivo.write(f'Renda Familiar: {renda_familiar}\n')
+            arquivo.write(f'Filiação: {filiacao}\n')
+            arquivo.write(f'CPF: {cpf}\n')
+            arquivo.write(f'Grau de Escolaridade: {grau_escolaridade}\n')
+            arquivo.write(f'Progresso: {verificar_progresso(idade, grau_escolaridade)}\n')
+            verificar_idade_nota(idade)
+            verificar_renda(renda_familiar)
+
+        print('Dados gravados com sucesso.')
+
+    elif escolha.lower() == 'n':
+        print('Cadastro fechado')
+        break
+
+    else:
+        print('Escolha inválida. Por favor, digite "s" para sim ou "n" para não.')
+
+    match escolha:
+        case 'ver':
+            print('\nHistórico de Alunos:')
+            for aluno in historico_alunos:
+                print(aluno)
